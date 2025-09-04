@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haus of PR - Launching Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: #000000;
+            --surface: #0a0a0a;
+            --surface-light: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent: #ffffff;
+            --accent-gradient: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+            --primary-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text-primary);
+            font-family: var(--primary-font);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Loader Styles */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .loader-progress {
+            width: 200px;
+            height: 2px;
+            background: var(--surface-light);
+            border-radius: 1px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .loader-bar {
+            height: 100%;
+            background: var(--accent-gradient);
+            border-radius: 1px;
+            transform: translateX(-100%);
+            animation: loadProgress 2s ease-in-out forwards;
+        }
+
+        @keyframes loadProgress {
+            to {
+                transform: translateX(0%);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Container */
+        .main-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            animation: mainFadeIn 1s ease 2.5s forwards;
+        }
+
+        @keyframes mainFadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100;
+            transform: translateY(-100%);
+            animation: slideDown 1s ease 3s forwards;
+        }
+
+        @keyframes slideDown {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: var(--surface-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 3.5s forwards;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+
+        .hero-title .word {
+            display: inline-block;
+            opacity: 0;
+            animation: letterSlide 1s ease forwards;
+        }
+
+        .hero-title .word:nth-child(1) { animation-delay: 4s; }
+        .hero-title .word:nth-child(2) { animation-delay: 4.2s; }
+        .hero-title .word:nth-child(3) { animation-delay: 4.4s; }
+
+        @keyframes letterSlide {
+            from {
+                opacity: 0;
+                transform: translateY(100px) rotateX(90deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0deg);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeInUp 1s ease 5s forwards;
+        }
+
+        .hero-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 5.5s forwards;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.3);
+            background: var(--surface-light);
+        }
+
+        .email-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .submit-btn {
+            padding: 1rem 2rem;
+            background: var(--text-primary);
+            color: var(--background);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .social-note {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+        }
+
+        /* Background Animation */
+        .bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: var(--surface);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 6rem 1rem 2rem;
+            }
+
+            .email-form {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .submit-btn {
+                width: 100%;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 5rem 1rem 2rem;
+            }
+
+            .hero-badge {
+                font-size: 0.75rem;
+                padding: 0.375rem 1rem;
+            }
+
+            .email-input, .submit-btn {
+                padding: 0.875rem 1.25rem;
+            }
+        }
+
+        /* Smooth scrolling and performance */
+        * {
+            will-change: auto;
+        }
+
+        .hero-title, .hero-subtitle, .hero-cta {
+            will-change: transform, opacity;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-logo">Haus of PR</div>
+            <div class="loader-progress">
+                <div class="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container" id="mainContainer">
+        <!-- Header -->
+        <header class="header">
+            <nav class="nav">
+                <div class="logo">Haus of PR</div>
+                <ul class="nav-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <main class="hero">
+            <div class="bg-animation" id="bgAnimation"></div>
+            <div class="hero-content">
+                <div class="hero-badge">Public Relations & Influencer Marketing</div>
+                <h1 class="hero-title">
+                    <span class="word">Haus</span>
+                    <span class="word">of</span>
+                    <span class="word">PR</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Elevating brands through strategic public relations and authentic influencer partnerships. 
+                    Where stories meet influence.
+                </p>
+                <div class="hero-cta">
+                    <form class="email-form" id="emailForm">
+                        <input 
+                            type="email" 
+                            class="email-input" 
+                            placeholder="Enter your email address"
+                            required
+                            id="emailInput"
+                        >
+                        <button type="submit" class="submit-btn">
+                            Get Early Access
+                        </button>
+                    </form>
+                    <p class="social-note">
+                        Be the first to experience premium PR solutions
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-text">© 2025 Haus of PR. Launching Soon.</p>
+                <ul class="footer-links">
+                    <li><a href="#privacy">Privacy</a></li>
+                    <li><a href="#terms">Terms</a></li>
+                    <li><a href="#support">Support</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Loader and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.getElementById('loader');
+            const mainContainer = document.getElementById('mainContainer');
+            
+            // Hide loader after animation
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 2500);
+
+            // Create floating background elements
+            createFloatingElements();
+
+            // Email form handling
+            const emailForm = document.getElementById('emailForm');
+            const emailInput = document.getElementById('emailInput');
+            
+            emailForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = emailInput.value.trim();
+                
+                if (email) {
+                    // Simulate form submission
+                    const btn = e.target.querySelector('.submit-btn');
+                    const originalText = btn.textContent;
+                    
+                    btn.textContent = 'Thank you!';
+                    btn.style.background = '#22c55e';
+                    
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = '';
+                        emailInput.value = '';
+                    }, 2000);
+                }
+            });
+
+            // Smooth parallax effect
+            let ticking = false;
+            
+            function updateParallax() {
+                const scrolled = window.pageYOffset;
+                const bgElements = document.querySelectorAll('.floating-element');
+                
+                bgElements.forEach((el, index) => {
+                    const speed = 0.5 + (index % 3) * 0.2;
+                    el.style.transform = `translateY(${scrolled * speed}px)`;
+                });
+                
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(updateParallax);
+                    ticking = true;
+                }
+            });
+        });
+
+        function createFloatingElements() {
+            const bgAnimation = document.getElementById('bgAnimation');
+            const numElements = 30;
+
+            for (let i = 0; i < numElements; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                
+                // Random positioning and animation
+                element.style.left = Math.random() * 100 + '%';
+                element.style.animationDelay = Math.random() * 20 + 's';
+                element.style.animationDuration = (15 + Math.random() * 10) + 's';
+                
+                // Random size
+                const size = 1 + Math.random() * 3;
+                element.style.width = size + 'px';
+                element.style.height = size + 'px';
+                
+                bgAnimation.appendChild(element);
+            }
+        }
+
+        // Performance optimization
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        
+        if (reducedMotion.matches) {
+            document.documentElement.style.setProperty('--animation-duration', '0.01ms');
+        }
+    </script>
+</body>
+</html>
+</body>
+</html>
