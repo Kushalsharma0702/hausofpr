@@ -346,27 +346,37 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 5000);
     }
 
-    // Continuous testimonial marquee duplication for seamless loop
-    (function initTestimonialLoop(){
-        const marquee = document.querySelector('#testimonials .testimonial-loop');
-        if(!marquee) return;
-        
-        const inner = marquee.querySelector('.marquee-inner');
-        if(!inner) return;
-        
-        // Avoid duplicating twice if re-run
-        if(inner.dataset.loopCloned === 'true') return;
-        
-        const cards = Array.from(inner.children);
-        
-        // Duplicate all cards for seamless infinite scroll (need 2x width)
-        cards.forEach(card => {
-            const clone = card.cloneNode(true);
-            clone.setAttribute('aria-hidden', 'true');
-            inner.appendChild(clone);
-        });
-        
-        inner.dataset.loopCloned = 'true';
+    // Initialize testimonial loop - idempotent & responsive
+    (function initTestimonialLoop() {
+        if (window.__testimonialLoopInit) return;
+        const marqueeInner = document.querySelector('.testimonial-loop .marquee-inner');
+        if (!marqueeInner) return;
+
+        const originals = Array.from(marqueeInner.querySelectorAll('.testimonial-card'));
+        if (!originals.length) return;
+
+        // Guard: if markup already multiplied (SSR / previous run)
+        if (marqueeInner.querySelector('[data-clone-set="1"]')) { window.__testimonialLoopInit = true; return; }
+
+        const isMobile = window.innerWidth <= 640;
+        const sets = isMobile ? 5 : 3; // enough to cover translateX(-50%) distance
+
+        for (let s = 1; s <= sets; s++) {
+            originals.forEach((card, idx) => {
+                const clone = card.cloneNode(true);
+                clone.setAttribute('data-clone-set', String(s));
+                clone.setAttribute('data-clone-index', String(idx));
+                marqueeInner.appendChild(clone);
+            });
+        }
+
+        // Restart animation to include new width
+        const speed = isMobile ? '18s' : '30s';
+        marqueeInner.style.animation = 'none';
+        void marqueeInner.offsetWidth; // reflow
+        marqueeInner.style.animation = `testimonial-scroll ${speed} linear infinite`;
+
+        window.__testimonialLoopInit = true;
     })();
 });
 
