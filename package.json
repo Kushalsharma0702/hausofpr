@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "Haus of PR - AI-powered public relations and influencer marketing solutions",
   "main": "index.html",
+  "type": "module",
   "scripts": {
-    "dev": "python3 -m http.server 3000",
-    "start": "python3 -m http.server 3000",
-    "build": "echo 'Static site - no build needed'"
+    "dev": "serve .",
+    "start": "serve .",
+    "build": "echo 'No build required for static site'"
   },
   "keywords": [
     "PR",
@@ -17,8 +18,5 @@
     "landing-page"
   ],
   "author": "Haus of PR",
-  "license": "MIT",
-  "engines": {
-    "node": ">=16.0.0"
-  }
+  "license": "MIT"
 }
