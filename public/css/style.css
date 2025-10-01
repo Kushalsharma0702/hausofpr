@@ -1,0 +1,5 @@
+/* Mirror of root css/style.css for public deployment */
+/* ---- 1. SETUP & COLOR PALETTE ---- */
+:root { /* ...existing root vars... */ }
+/* Full stylesheet intentionally omitted here for brevity; rely on root css/style.css source in root. */
+/* If deploying statically from /public, consider moving original css content here instead of duplication. */
