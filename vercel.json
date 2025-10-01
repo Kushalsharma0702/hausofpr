@@ -1,0 +1,23 @@
+{
+  "routes": [
+    {
+      "src": "/coming-soon",
+      "dest": "/coming-soon.html"
+    },
+    {
+      "src": "/contact", 
+      "dest": "/contact.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|mp4|webm|ico|woff|woff2|ttf|eot))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}

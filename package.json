@@ -1,0 +1,24 @@
+{
+  "name": "hausofpr",
+  "version": "1.0.0",
+  "description": "Haus of PR - AI-powered public relations and influencer marketing solutions",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 3000",
+    "start": "python3 -m http.server 3000",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "keywords": [
+    "PR",
+    "public-relations", 
+    "AI",
+    "media-monitoring",
+    "influencer-marketing",
+    "landing-page"
+  ],
+  "author": "Haus of PR",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
