@@ -1,17 +1,11 @@
 {
-  "routes": [
-    {
-      "src": "/coming-soon",
-      "dest": "/coming-soon.html"
-    },
-    {
-      "src": "/contact", 
-      "dest": "/contact.html"
-    }
+  "rewrites": [
+    { "source": "/coming-soon", "destination": "/coming-soon.html" },
+    { "source": "/contact", "destination": "/contact.html" }
   ],
   "headers": [
     {
-      "source": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|mp4|webm|ico|woff|woff2|ttf|eot))",
+      "source": "/:all*(css|js|png|jpg|jpeg|gif|svg|mp4|webm|ico|woff|woff2|ttf|eot)",
       "headers": [
         {
           "key": "Cache-Control",
