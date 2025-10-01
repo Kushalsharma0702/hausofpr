@@ -1,5 +1,4 @@
 {
-  "outputDirectory": "public",
   "rewrites": [
     { "source": "/coming-soon", "destination": "/coming-soon.html" },
     { "source": "/contact", "destination": "/contact.html" }
