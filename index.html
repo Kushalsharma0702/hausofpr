@@ -3,620 +3,623 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haus of PR - Launching Soon</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --background: #000000;
-            --surface: #0a0a0a;
-            --surface-light: #1a1a1a;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --text-muted: #666666;
-            --accent: #ffffff;
-            --accent-gradient: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
-            --primary-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            font-size: 16px;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: var(--background);
-            color: var(--text-primary);
-            font-family: var(--primary-font);
-            overflow-x: hidden;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Loader Styles */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--background);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-
-        .loader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader-content {
-            text-align: center;
-        }
-
-        .loader-logo {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards;
-        }
-
-        .loader-progress {
-            width: 200px;
-            height: 2px;
-            background: var(--surface-light);
-            border-radius: 1px;
-            overflow: hidden;
-            margin: 0 auto;
-        }
-
-        .loader-bar {
-            height: 100%;
-            background: var(--accent-gradient);
-            border-radius: 1px;
-            transform: translateX(-100%);
-            animation: loadProgress 2s ease-in-out forwards;
-        }
-
-        @keyframes loadProgress {
-            to {
-                transform: translateX(0%);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Main Container */
-        .main-container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            opacity: 0;
-            animation: mainFadeIn 1s ease 2.5s forwards;
-        }
-
-        @keyframes mainFadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem 2rem;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            z-index: 100;
-            transform: translateY(-100%);
-            animation: slideDown 1s ease 3s forwards;
-        }
-
-        @keyframes slideDown {
-            to {
-                transform: translateY(0);
-            }
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        /* Hero Section */
-        .hero {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 8rem 2rem 4rem;
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            z-index: 2;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: var(--surface-light);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease 3.5s forwards;
-        }
-
-        .hero-title {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            color: #ffffff;
-        }
-
-        .hero-title .word {
-            display: inline-block;
-            opacity: 0;
-            animation: letterSlide 1s ease forwards;
-        }
-
-        .hero-title .word:nth-child(1) { animation-delay: 4s; }
-        .hero-title .word:nth-child(2) { animation-delay: 4.2s; }
-        .hero-title .word:nth-child(3) { animation-delay: 4.4s; }
-
-        @keyframes letterSlide {
-            from {
-                opacity: 0;
-                transform: translateY(100px) rotateX(90deg);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) rotateX(0deg);
-            }
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.125rem, 2.5vw, 1.5rem);
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            font-weight: 400;
-            opacity: 0;
-            animation: fadeInUp 1s ease 5s forwards;
-        }
-
-        .hero-cta {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease 5.5s forwards;
-        }
-
-        .email-form {
-            display: flex;
-            gap: 1rem;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .email-input {
-            flex: 1;
-            padding: 1rem 1.5rem;
-            background: var(--surface);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .email-input:focus {
-            outline: none;
-            border-color: rgba(255, 255, 255, 0.3);
-            background: var(--surface-light);
-        }
-
-        .email-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .submit-btn {
-            padding: 1rem 2rem;
-            background: var(--text-primary);
-            color: var(--background);
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
-        }
-
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .submit-btn:hover::before {
-            left: 100%;
-        }
-
-        .social-note {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            margin-top: 1rem;
-        }
-
-        /* Background Animation */
-        .bg-animation {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .floating-element {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 20s linear infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) translateX(100px);
-                opacity: 0;
-            }
-        }
-
-        /* Footer */
-        .footer {
-            padding: 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            background: var(--surface);
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .footer-text {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.875rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--text-secondary);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header {
-                padding: 1rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .hero {
-                padding: 6rem 1rem 2rem;
-            }
-
-            .email-form {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .submit-btn {
-                width: 100%;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .footer-links {
-                gap: 1rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero {
-                padding: 5rem 1rem 2rem;
-            }
-
-            .hero-badge {
-                font-size: 0.75rem;
-                padding: 0.375rem 1rem;
-            }
-
-            .email-input, .submit-btn {
-                padding: 0.875rem 1.25rem;
-            }
-        }
-
-        /* Smooth scrolling and performance */
-        * {
-            will-change: auto;
-        }
-
-        .hero-title, .hero-subtitle, .hero-cta {
-            will-change: transform, opacity;
-        }
-    </style>
+    <title>Haus Of PR - AI-Driven PR Solutions | Media Monitoring & PR Tools</title>
+    
+    <!-- Enhanced Meta Tags for SEO -->
+    <meta n                    </div>
+                <!-- <div class="testimonial-card bg-[var(--color-black-2)] p-8 rounded-xl">
+                    <div class="star-rating mb-3">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star half-filled">★</span>
+                        <span class="rating-text ml-2">4.5</span>
+                    </div>
+                    <p class="body-15-400-1 mb-4">"The comprehensive media contact database and intelligent filtering system transformed our outreach process. We went from spending hours researching contacts to building targeted lists in minutes."</p>
+                    <h4 class="body-16-400 font-medium mt-4">Marcus Rodriguez</h4>
+                    <p class="caption-12-400 text-[var(--color-dim-gray)]">PR Director, GreenTech Solutions</p>
+                </div>
+                <div class="testimonial-card bg-[var(--color-black-2)] p-8 rounded-xl">
+                    <div class="star-rating mb-3">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="rating-text ml-2">5.0</span>
+                    </div> -->
+                    <!-- <p class="body-15-400-1 mb-4">"Their crisis management and real-time monitoring capabilities saved our reputation during a critical period. The AI insights helped us craft the perfect response strategy and maintain positive media sentiment."</p>
+                    <h4 class="body-16-400 font-medium mt-4">Jennifer Park</h4>
+                    <p class="caption-12-400 text-[var(--color-dim-gray)]">Chief Marketing Officer, FinanceFirst</p>
+                </div>e="description" content="Transform your PR strategy with Haus Of PR's AI-powered media monitoring and curated PR contact database. Streamline your workflow with intelligent PR tools designed for modern agencies."> -->
+    <meta name="keywords" content="AI PR tools, media monitoring, PR database, public relations, brand monitoring, media contact database, PR agency tools, digital PR, AI-powered PR solutions">
+    <meta name="author" content="Haus Of PR">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hausofpr.com/">
+    <meta property="og:title" content="Haus Of PR - AI-Driven PR Solutions">
+    <meta property="og:description" content="Transform your PR strategy with AI-powered media monitoring and curated PR contact database. Professional PR tools for modern agencies.">
+    <meta property="og:image" content="https://hausofpr.com/assets/og-image.jpg">
+    <meta property="og:site_name" content="Haus Of PR">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://hausofpr.com/">
+    <meta property="twitter:title" content="Haus Of PR - AI-Driven PR Solutions">
+    <meta property="twitter:description" content="Transform your PR strategy with AI-powered media monitoring and curated PR contact database.">
+    <meta property="twitter:image" content="https://hausofpr.com/assets/twitter-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="manifest" href="assets/site.webmanifest">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+        })();
+    </script>
+    
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=kenapa-sans-serif@400,500,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <!-- Loader -->
-    <div class="loader" id="loader">
+<body style="background-color: var(--color-black-3); color: var(--color-white);">
+
+    <!-- Modern Horizontal Progress Loader -->
+    <div id="loader" class="loader-container">
         <div class="loader-content">
-            <div class="loader-logo">Haus of PR</div>
-            <div class="loader-progress">
-                <div class="loader-bar"></div>
+            <div class="loader-logo">
+                <img src="assets/logo.png" alt="Haus Of PR Logo" class="h-14 w-auto filter brightness-0 invert loader-logo-img">
             </div>
+            <div class="loader-progress-container">
+                <div class="loader-progress-bar">
+                    <div class="loader-progress-fill"></div>
+                </div>
+                <div class="loader-percentage">0%</div>
+            </div>
+            <div class="loader-text">Loading...</div>
         </div>
     </div>
 
-    <!-- Main Container -->
-    <div class="main-container" id="mainContainer">
-        <!-- Header -->
-        <header class="header">
-            <nav class="nav">
-                <div class="logo">Haus of PR</div>
-                <ul class="nav-links">
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </header>
+    <section class="relative min-h-screen flex flex-col overflow-hidden hero-overlay">
+        <video autoplay loop muted playsinline class="hero-video-bg">
+            <source src="videos/fluid-background.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content w-full flex-grow flex flex-col">
+            <header class="container mx-auto px-6 py-8">
+                <nav class="flex justify-between items-center">
+                    <a href="#" class="logo-image">
+                        <img src="assets/logo.png" alt="Haus Of PR Logo" class="h-9 w-auto filter brightness-0 invert">
+                    </a>
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="#services" class="body-15-400-1">Services</a>
+                        <a href="#projects" class="body-15-400-1">Projects</a>
+                        <a href="#testimonials" class="body-15-400-1">Testimonials</a>
+                        <a href="#contact" class="body-15-400-1">Contact</a>
+                    </div>
+                    <button id="mobile-menu-button" class="md:hidden text-white ml-auto">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </nav>
+                <div id="mobile-menu" class="hidden md:hidden bg-[#1c1c1c] mt-4 rounded-lg">
+                    <a href="#services" class="block py-3 px-4">Services</a>
+                    <a href="#projects" class="block py-3 px-4">Projects</a>
+                    <a href="#testimonials" class="block py-3 px-4">Testimonials</a>
+                    <a href="#contact" class="block py-3 px-4">Contact</a>
+                    <div class="p-4"><a href="#" class="btn-shimmer block text-center bg-white text-black px-6 py-2 rounded-lg font-semibold">Explore Our Tools</a></div>
+                </div>
+            </header>
+            <main class="flex-grow flex flex-col items-center justify-center text-center container mx-auto px-6">
+                <h1 class="h1-92-400 mb-4 slide-in-up">Empower Your PR Strategy<br>with AI-Driven Insights</h1>
+                <p class="body-24-400-1 text-[var(--color-gainsboro)] max-w-2xl mb-8 slide-in-up">Transform your digital PR with our AI-powered media monitoring and curated media contact database. Stay ahead of the news cycle with real-time intelligence that streamlines your workflow and maximizes your media visibility.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 slide-in-up">
+                    <a href="#" class="btn-shimmer bg-white text-black px-8 py-3 rounded-lg font-semibold body-15-400-2">Explore Our Tools</a>
+                    <a href="#" class="btn-shimmer bg-[var(--color-charcoal)] border border-[var(--color-dim-gray)] px-8 py-3 rounded-lg font-semibold body-15-400-2 text-white">See Process</a>
+                </div>
+            </main>
+            <footer class="hero-content w-full mt-auto pb-12">
+                <div class="logo-marquee">
+            </div>        <div class="logo-marquee-inner">
+                        <span class="mx-8 text-xl font-semibold text-gray-500">TechCrunch</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Forbes</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Wired</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Reuters</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Bloomberg</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">TechCrunch</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Forbes</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Wired</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Reuters</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Bloomberg</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">TechCrunch</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Forbes</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Wired</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Reuters</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Bloomberg</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">TechCrunch</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Forbes</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Wired</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Reuters</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Bloomberg</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">TechCrunch</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Wired</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Reuters</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Bloomberg</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">TechCrunch</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Forbes</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Wired</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Reuters</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">Bloomberg</span>
+                        <span class="mx-8 text-xl font-semibold text-gray-500">TechCrunch</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </section>
 
-        <!-- Hero Section -->
-        <main class="hero">
-            <div class="bg-animation" id="bgAnimation"></div>
-            <div class="hero-content">
-                <div class="hero-badge">Public Relations & Influencer Marketing</div>
-                <h1 class="hero-title">
-                    <span class="word">Haus</span>
-                    <span class="word">of</span>
-                    <span class="word">PR</span>
-                </h1>
-                <p class="hero-subtitle">
-                    Elevating brands through strategic public relations and authentic influencer partnerships. 
-                    Where stories meet influence.
-                </p>
-                <div class="hero-cta">
-                    <form class="email-form" id="emailForm">
-                        <input 
-                            type="email" 
-                            class="email-input" 
-                            placeholder="Enter your email address"
-                            required
-                            id="emailInput"
-                        >
-                        <button type="submit" class="submit-btn">
-                            Get Early Access
-                        </button>
-                    </form>
-                    <p class="social-note">
-                        Be the first to experience premium PR solutions
-                    </p>
+    <section id="projects" class="container mx-auto px-6 py-24">
+        <div class="text-center mb-16">
+            <h2 class="h2-92-400 mb-4 slide-in-up">Featured Tools Overview</h2>
+            <p class="body-18-400 text-[var(--color-gainsboro)] max-w-4xl mx-auto slide-in-up">Our platform offers two advanced digital PR tools designed for modern communications professionals. The first is an AI-Powered Media Monitoring system, and the second is a Curated PR Contact & Media Database. These tools work together to automate routine tasks so your agency can focus on strategy and storytelling.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="tool-card group bg-[var(--color-black-2)] p-8 rounded-xl card-hover slide-in-left">
+                <h3 class="h3-36-500 mb-4">AI-Powered Media Monitoring</h3>
+                <p class="body-15-400-1 text-[var(--color-dim-gray)] mb-4">Our AI-powered media monitoring uses cutting-edge artificial intelligence to track and analyze brand mentions across digital channels. This tech-driven solution scans social media, news sites, blogs, and more to provide real-time insights on your campaigns.</p>
+                <div class="expandable-content" style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease;">
+                    <div class="pt-4 border-t border-[var(--color-charcoal)] mt-4">
+                        <h4 class="body-18-400 font-semibold mb-3 text-white">Key Features:</h4>
+                        <ul class="space-y-2 body-15-400-1 text-[var(--color-dim-gray)]">
+                            <li>• Real-time sentiment analysis across 50+ platforms</li>
+                            <li>• Advanced keyword tracking with AI-powered context understanding</li>
+                            <li>• Automated crisis detection and alert system</li>
+                            <li>• Comprehensive analytics dashboard with exportable reports</li>
+                            <li>• Multi-language support for global brand monitoring</li>
+                        </ul>
+                        <div class="mt-4 flex space-x-3">
+                            <span class="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">95% Accuracy</span>
+                            <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">24/7 Monitoring</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="learn-more-btn mt-4 body-18-400 text-white hover:text-purple-300 transition-colors cursor-pointer flex items-center">
+                    <span>Learn More</span>
+                    <svg class="ml-2 w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="tool-card group bg-[var(--color-black-2)] p-8 rounded-xl card-hover slide-in-right">
+                <h3 class="h3-36-500 mb-4">Curated PR Contact & Media Database</h3>
+                <p class="body-15-400-1 text-[var(--color-dim-gray)] mb-4">Our Curated PR Contact & Media Database is a structured directory of journalists, editors, bloggers, and influencers. Each contact entry includes up-to-date email addresses, beat and topic interests, and outlet details to ensure precise targeting.</p>
+                <div class="expandable-content" style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease;">
+                    <div class="pt-4 border-t border-[var(--color-charcoal)] mt-4">
+                        <h4 class="body-18-400 font-semibold mb-3 text-white">Database Details:</h4>
+                        <ul class="space-y-2 body-15-400-1 text-[var(--color-dim-gray)]">
+                            <li>• 25,000+ verified media contacts across all industries</li>
+                            <li>• Advanced filtering by beat, location, and engagement rate</li>
+                            <li>• Direct contact information with 98% accuracy rate</li>
+                            <li>• Influencer scoring and reach analytics</li>
+                            <li>• Regular database updates and contact verification</li>
+                        </ul>
+                        <div class="mt-4 flex space-x-3">
+                            <span class="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">25K+ Contacts</span>
+                            <span class="px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full text-sm">Weekly Updates</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="learn-more-btn mt-4 body-18-400 text-white hover:text-purple-300 transition-colors cursor-pointer flex items-center">
+                    <span>Learn More</span>
+                    <svg class="ml-2 w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-6 py-24">
+        <div class="text-center mb-16">
+            <h2 class="h2-92-400 mb-4 slide-in-up">AI-Powered Media Monitoring</h2>
+            <p class="body-18-400 text-[var(--color-gainsboro)] max-w-3xl mx-auto slide-in-up">Advanced artificial intelligence technology that monitors your brand across all digital channels in real-time.</p>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-16 items-start">
+            <div>
+                <h3 class="h3-36-500 mb-4">Comprehensive Brand Tracking</h3>
+                <p class="body-18-400 text-[var(--color-gainsboro)] mb-8">Our AI-powered media monitoring uses cutting-edge artificial intelligence to track and analyze brand mentions across digital channels. This tech-driven solution scans social media, news sites, blogs, and more to provide real-time insights on your campaigns. By automating large-scale data analysis, the tool delivers quick feedback and early alerts about emerging trends or potential PR issues, enabling your team to respond swiftly and maintain control over the narrative.</p>
+                <div class="border-t border-[var(--color-charcoal)] pt-8 mb-8 flex flex-wrap gap-3">
+                    <span class="border border-[var(--color-charcoal)] px-4 py-2 rounded-lg body-15-400-1">Real-time Monitoring</span> <span class="border border-[var(--color-charcoal)] px-4 py-2 rounded-lg body-15-400-1">Sentiment Analysis</span> <span class="border border-[var(--color-charcoal)] px-4 py-2 rounded-lg body-15-400-1">Trend Detection</span> <span class="border border-[var(--color-charcoal)] px-4 py-2 rounded-lg body-15-400-1">Crisis Alerts</span> <span class="border border-[var(--color-charcoal)] px-4 py-2 rounded-lg body-15-400-1">Multi-Channel Tracking</span>
+                </div>
+                <div class="mt-16 space-y-4">
+                    <div class="grid grid-cols-3 gap-4 py-2 border-b border-[var(--color-charcoal)]"><span class="body-15-400-1 text-[var(--color-dim-gray)]">Coverage</span><span class="body-15-400-2">Social Media & News</span><span class="body-15-400-3 text-[var(--color-dim-gray)]">24/7</span></div>
+                    <div class="grid grid-cols-3 gap-4 py-2 border-b border-[var(--color-charcoal)]"><span class="body-15-400-1 text-[var(--color-dim-gray)]">Analysis Speed</span><span class="body-15-400-2">Real-time Processing</span><span class="body-15-400-3 text-[var(--color-dim-gray)]">Instant</span></div>
+                    <div class="grid grid-cols-3 gap-4 py-2 border-b border-[var(--color-charcoal)]"><span class="body-15-400-1 text-[var(--color-dim-gray)]">Alert System</span><span class="body-15-400-2">Smart Notifications</span><span class="body-15-400-3 text-[var(--color-dim-gray)]">Automated</span></div>
                 </div>
             </div>
-        </main>
+            <div><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="AI Media Monitoring Dashboard" class="rounded-2xl w-full shadow-2xl"></div>
+        </div>
+    </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <p class="footer-text">© 2025 Haus of PR. Launching Soon.</p>
-                <ul class="footer-links">
-                    <li><a href="#privacy">Privacy</a></li>
-                    <li><a href="#terms">Terms</a></li>
-                    <li><a href="#support">Support</a></li>
-                </ul>
+    <section class="container mx-auto px-6 py-24">
+        <div class="text-center mb-16">
+            <h2 class="h2-92-400 mb-4 slide-in-up">Our Process</h2>
+            <p class="body-18-400 text-[var(--color-gainsboro)] max-w-3xl mx-auto slide-in-up">A streamlined approach to delivering exceptional PR results with precision and efficiency.</p>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Process Workflow" class="rounded-2xl w-full shadow-2xl"></div>
+            <div>
+                <h3 class="h3-36-500 mb-4">Three-Step Methodology</h3>
+                <p class="body-18-400 text-[var(--color-gainsboro)] mb-12">From initial consultation to final delivery, our proven process ensures your success.</p>
+                <div class="space-y-6">
+                    <div class="bg-[var(--color-black-2)] p-6 rounded-xl card-hover slide-in-right"><h4 class="heading-24-500 mb-2">Define Your Vision</h4><p class="body-15-400-1 text-[var(--color-dim-gray)]">We begin with a thorough consultation to understand your brand, goals, and target audience. This ensures our tools and design services align perfectly with your campaign objectives.</p></div>
+                    <div class="bg-[var(--color-black-2)] p-6 rounded-xl card-hover slide-in-right"><h4 class="heading-24-500 mb-2">Submit Your Request</h4><p class="body-15-400-1 text-[var(--color-dim-gray)]">Share the details of your PR initiative or creative brief. Whether you need media monitoring, contact research, or a new branding package, we tailor our approach to your specific needs.</p></div>
+                    <div class="bg-[var(--color-black-2)] p-6 rounded-xl card-hover slide-in-right"><h4 class="heading-24-500 mb-2">Project Delivered</h4><p class="body-15-400-1 text-[var(--color-dim-gray)]">Our team then executes your strategy with precision. We deploy the right tools, craft insightful reports, and deliver polished creative assets on schedule—so you get the results you want without extra hassle.</p></div>
+                </div>
             </div>
-        </footer>
-    </div>
+        </div>
+    </section>
 
-    <script>
-        // Loader and animations
-        document.addEventListener('DOMContentLoaded', function() {
-            const loader = document.getElementById('loader');
-            const mainContainer = document.getElementById('mainContainer');
-            
-            // Hide loader after animation
-            setTimeout(() => {
-                loader.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }, 2500);
+    <section id="services" class="container mx-auto px-6 py-24">
+        <div class="text-center mb-16">
+            <h2 class="h2-92-400 mb-4 slide-in-up">Our Services</h2>
+            <p class="body-18-400 text-[var(--color-gainsboro)] max-w-3xl mx-auto slide-in-up">Comprehensive PR and branding solutions that help agencies build powerful brand identities and execute successful communication strategies.</p>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-16 mb-16 items-center">
+            <div><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="PR and branding services" class="rounded-2xl w-full shadow-2xl"></div>
+            <div>
+                <h3 class="h3-36-500 mb-4">Complete PR Solutions</h3>
+                <p class="body-18-400 text-[var(--color-gainsboro)]">From brand identity to media relations, we provide end-to-end solutions for your PR needs.</p>
+            </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8 mb-16">
+            <div class="bg-[var(--color-black-2)] p-8 rounded-xl card-hover slide-in-left"><h3 class="h3-36-500 mb-2">Brand Identity</h3><p class="body-15-400-1 text-[var(--color-dim-gray)]">Our branding design for agencies ensures that each client's essence is captured in a cohesive visual identity. We craft the visible elements of a brand – from logos and color palettes to typography – that reflect the company's values and story.</p></div>
+            <div class="bg-[var(--color-black-2)] p-8 rounded-xl card-hover slide-in-right"><h3 class="h3-36-500 mb-2">Package Design</h3><p class="body-15-400-1 text-[var(--color-dim-gray)]">Effective package design turns products into memorable brand experiences. We develop eye-catching packaging that not only protects the product but also conveys the brand's narrative at a glance.</p></div>
+            <div class="bg-[var(--color-black-2)] p-8 rounded-xl card-hover slide-in-left"><h3 class="h3-36-500 mb-2">Brand Design</h3><p class="body-15-400-1 text-[var(--color-dim-gray)]">Our brand design service encompasses all visual assets needed for a cohesive image. From marketing collateral to website graphics, we ensure every touchpoint reflects the new brand identity.</p></div>
+            <div class="bg-[var(--color-black-2)] p-8 rounded-xl card-hover slide-in-right"><h3 class="h3-36-500 mb-2">Media Relations</h3><p class="body-15-400-1 text-[var(--color-dim-gray)]">Strategic media outreach and relationship building with journalists, editors, and influencers to maximize your brand's visibility and secure quality coverage.</p></div>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3">
+            <span class="border border-[var(--color-charcoal)] px-4 py-2 rounded-lg body-15-400-1">Media Monitoring</span>
+            <span class="border border-[var(--color-charcoal)] px-4 py-2 rounded-lg body-15-400-1">Crisis Management</span>
+            <span class="border border-[var(--color-charcoal)] px-4 py-2 rounded-lg body-15-400-1">Press Releases</span>
+            <span class="border border-[var(--color-charcoal)] px-4 py-2 rounded-lg body-15-400-1">Content Strategy</span>
+            <span class="border border-[var(--color-charcoal)] px-4 py-2 rounded-lg body-15-400-1">Influencer Outreach</span>
+        </div>
+    </section>
 
-            // Create floating background elements
-            createFloatingElements();
+    <section id="testimonials" class="py-24 space-y-16">
+        <div class="text-center mb-16">
+            <h2 class="h2-92-400 mb-4 slide-in-up">Client Success Stories</h2>
+            <p class="body-18-400 text-[var(--color-gainsboro)] max-w-3xl mx-auto slide-in-up">Real feedback from agencies and brands who trusted our PR expertise to amplify their stories and achieve remarkable media coverage.</p>
+        </div>
+        <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+            <div><h3 class="h3-36-500 mb-4">What Our Clients Say</h3><p class="body-18-400 text-[var(--color-gainsboro)]">Discover how we've transformed PR strategies for leading brands across industries.</p></div>
+            <div class="relative overflow-hidden rounded-2xl shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80" alt="Client success stories" class="w-full h-80 object-cover object-center">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+        </div>
+    <div class="marquee testimonial-loop">
+            <div class="marquee-inner">
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar"><img src="https://i.pravatar.cc/150?img=12" alt="Marcus"></div>
+                    <div class="star-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div>
+                    <p class="body-15-400-1 quote">"The comprehensive media contact database and intelligent filtering system transformed our outreach process."</p>
+                    <div class="testimonial-footer"><h4 class="body-16-400 font-medium name">Marcus Rodriguez</h4><p class="caption-12-400 role text-[var(--color-dim-gray)]">PR Director · GreenTech</p></div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar"><img src="https://i.pravatar.cc/150?img=32" alt="Jennifer"></div>
+                    <div class="star-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div>
+                    <p class="body-15-400-1 quote">"Crisis monitoring alerts gave us precious minutes to craft a smarter response during launch week."</p>
+                    <div class="testimonial-footer"><h4 class="body-16-400 font-medium name">Jennifer Park</h4><p class="caption-12-400 role text-[var(--color-dim-gray)]">CMO · FinanceFirst</p></div>
+                </div>
+                <div class="testimonial-card">      
+                    <div class="testimonial-avatar"><img src="https://i.pravatar.cc/150?img=56" alt="Elena"></div>
+                    <div class="star-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div>
+                    <p class="body-15-400-1 quote">"Automated monitoring replaced three tools. Unified dashboards keep us aligned and fast."</p>
+                    <div class="testimonial-footer"><h4 class="body-16-400 font-medium name">Elena Dimitrov</h4><p class="caption-12-400 role text-[var(--color-dim-gray)]">Head Comms · Horizon</p></div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar"><img src="https://i.pravatar.cc/150?img=5" alt="Ravi"></div>
+                    <div class="star-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div>
+                    <p class="body-15-400-1 quote">"Segmented journalist list building is unbelievably fast now—hours reduced to minutes."</p>
+                    <div class="testimonial-footer"><h4 class="body-16-400 font-medium name">Ravi Patel</h4><p class="caption-12-400 role text-[var(--color-dim-gray)]">Founder · Signal PR</p></div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar"><img src="https://i.pravatar.cc/150?img=23" alt="Sara"></div>
+                    <div class="star-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div>
+                    <p class="body-15-400-1 quote">"Alert noise dropped dramatically—weekly executive briefs almost write themselves."</p>
+                    <div class="testimonial-footer"><h4 class="body-16-400 font-medium name">Sara Lindholm</h4><p class="caption-12-400 role text-[var(--color-dim-gray)]">Comms Lead · Nordic Bio</p></div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar"><img src="https://i.pravatar.cc/150?img=56" alt="Elena"></div>
+                    <div class="star-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div>
+                    <p class="body-15-400-1 quote">"Automated monitoring replaced three tools. Unified dashboards keep us aligned and fast."</p>
+                    <div class="testimonial-footer"><h4 class="body-16-400 font-medium name">Elena Dimitrov</h4><p class="caption-12-400 role text-[var(--color-dim-gray)]">Head Comms · Horizon</p></div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar"><img src="https://i.pravatar.cc/150?img=5" alt="Ravi"></div>
+                    <div class="star-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div>
+                    <p class="body-15-400-1 quote">"Segmented journalist list building is unbelievably fast now—hours reduced to minutes."</p>
+                    <div class="testimonial-footer"><h4 class="body-16-400 font-medium name">Ravi Patel</h4><p class="caption-12-400 role text-[var(--color-dim-gray)]">Founder · Signal PR</p></div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar"><img src="https://i.pravatar.cc/150?img=23" alt="Sara"></div>
+                    <div class="star-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div>
+                    <p class="body-15-400-1 quote">"Alert noise dropped dramatically—weekly executive briefs almost write themselves."</p>
+                    <div class="testimonial-footer"><h4 class="body-16-400 font-medium name">Sara Lindholm</h4><p class="caption-12-400 role text-[var(--color-dim-gray)]">Comms Lead · Nordic Bio</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            // Email form handling
-            const emailForm = document.getElementById('emailForm');
-            const emailInput = document.getElementById('emailInput');
-            
-            emailForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const email = emailInput.value.trim();
+    <section class="container mx-auto px-6 py-24">
+        <div class="text-center mb-16">
+            <h2 class="h2-92-400 mb-4 slide-in-up">Our Impact</h2>
+            <p class="body-18-400 text-[var(--color-gainsboro)] max-w-3xl mx-auto slide-in-up">Measurable results that demonstrate our commitment to excellence and client success.</p>
+        </div>
+        <div class="bg-[var(--color-black-2)] rounded-2xl p-12 grid sm:grid-cols-3 gap-8 text-center card-hover slide-in-up" id="impact-stats">
+            <div class="slide-in-up">
+                <p class="text-5xl font-semibold mb-2 counter-number" data-target="500000" data-suffix="K+">0</p>
+                <p class="body-15-400-2 text-[var(--color-dim-gray)]">media mentions monitored daily.</p>
+            </div>
+            <div class="slide-in-up">
+                <p class="text-5xl font-semibold mb-2 counter-number" data-target="25000" data-suffix="K+">0</p>
+                <p class="body-15-400-2 text-[var(--color-dim-gray)]">verified media contacts.</p>
+            </div>
+            <div class="slide-in-up">
+                <p class="text-5xl font-semibold mb-2 counter-number" data-target="98" data-suffix="%">0</p>
+                <p class="body-15-400-2 text-[var(--color-dim-gray)]">client satisfaction rate.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="container mx-auto px-6 py-24">
+        <div class="grid lg:grid-cols-2 gap-16 items-start">
+            <div class="slide-in-up"><h2 class="h2-92-400 mb-4">Frequently Asked Questions</h2><p class="body-18-400 text-[var(--color-gainsboro)] mb-8">Find answers to common questions about our AI-powered PR tools, media monitoring services, and how we can help amplify your brand's story.</p><img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="PR tools interface" class="rounded-2xl w-full shadow-2xl"></div>
+            <div id="accordion-container" class="space-y-2">
+                <div class="accordion-item bg-[var(--color-black-2)] rounded-xl p-6 card-hover slide-in-right"><button class="accordion-header w-full flex justify-between items-center text-left"><span class="body-18-400 font-medium">What PR tools and services do you provide?</span><span class="text-2xl font-light transform transition-transform duration-300">+</span></button><div class="accordion-content"><p class="pt-4 body-15-400-1 text-[var(--color-dim-gray)]">We offer AI-powered media monitoring, a curated PR contact database, brand identity design, and comprehensive media relations services to help agencies and brands maximize their PR impact.</p></div></div>
+                <div class="accordion-item bg-[var(--color-black-2)] rounded-xl p-6 card-hover slide-in-right"><button class="accordion-header w-full flex justify-between items-center text-left"><span class="body-18-400 font-medium">How do I start using your PR tools?</span><span class="text-2xl font-light transform transition-transform duration-300">+</span></button><div class="accordion-content"><p class="pt-4 body-15-400-1 text-[var(--color-dim-gray)]">Simply book a free consultation through our contact form. We'll discuss your PR goals, current challenges, and demonstrate how our AI-powered tools can streamline your media outreach and monitoring efforts.</p></div></div>
+                <div class="accordion-item bg-[var(--color-black-2)] rounded-xl p-6 card-hover slide-in-right"><button class="accordion-header w-full flex justify-between items-center text-left"><span class="body-18-400 font-medium">How accurate is your AI media monitoring?</span><span class="text-2xl font-light transform transition-transform duration-300">+</span></button><div class="accordion-content"><p class="pt-4 body-15-400-1 text-[var(--color-dim-gray)]">Our AI monitoring system achieves 95%+ accuracy in brand mention detection and sentiment analysis. It continuously learns from verified data to reduce false positives and provide precise, actionable insights for your PR campaigns.</p></div></div>
+                <div class="accordion-item bg-[var(--color-black-2)] rounded-xl p-6 card-hover slide-in-right"><button class="accordion-header w-full flex justify-between items-center text-left"><span class="body-18-400 font-medium">What's included in your media contact database?</span><span class="text-2xl font-light transform transition-transform duration-300">+</span></button><div class="accordion-content"><p class="pt-4 body-15-400-1 text-[var(--color-dim-gray)]">Our database includes 25,000+ verified contacts across journalists, editors, bloggers, and influencers. Each profile contains current email addresses, beat preferences, publication details, response rates, and engagement history.</p></div></div>
+                <div class="accordion-item bg-[var(--color-black-2)] rounded-xl p-6 card-hover slide-in-right"><button class="accordion-header w-full flex justify-between items-center text-left"><span class="body-18-400 font-medium">Do you offer integration with existing PR tools?</span><span class="text-2xl font-light transform transition-transform duration-300">+</span></button><div class="accordion-content"><p class="pt-4 body-15-400-1 text-[var(--color-dim-gray)]">Yes, we provide seamless integration with popular PR platforms like Cision, Meltwater, and Sprout Social through our API. We also offer custom integrations for enterprise clients with specific workflow requirements.</p></div></div>
+                <div class="accordion-item bg-[var(--color-black-2)] rounded-xl p-6 card-hover slide-in-right"><button class="accordion-header w-full flex justify-between items-center text-left"><span class="body-18-400 font-medium">What is your pricing model?</span><span class="text-2xl font-light transform transition-transform duration-300">+</span></button><div class="accordion-content"><p class="pt-4 body-15-400-1 text-[var(--color-dim-gray)]">We offer flexible subscription plans starting from $299/month for small agencies, with enterprise solutions customized based on volume and feature requirements. All plans include 24/7 support and onboarding assistance.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="relative py-32 hero-overlay">
+        <video autoplay loop muted playsinline class="hero-video-bg"><source src="videos/fluid-background.mp4" type="video/mp4"></video>
+         <div class="hero-content text-center px-6">
+            <div class="slide-in-up mb-6">
+                <span class="body-15-400-2 text-[var(--color-gainsboro)] uppercase tracking-wider">Start Your Journey</span>
+            </div>
+            <h2 class="h2-92-400 mb-4 slide-in-up">Ready to revolutionize<br>your PR strategy?</h2>
+            <p class="body-18-400 text-[var(--color-gainsboro)] max-w-xl mb-8 mx-auto slide-in-up">Let's transform your media outreach with AI-powered intelligence and data-driven insights.</p>
+            <a href="#" class="btn-shimmer bg-white text-black px-8 py-3 rounded-lg font-semibold body-15-400-2 slide-in-up">Book a Free Call</a>
+         </div>
+    </section>
+
+    <!-- Professional Contact Form Section -->
+    <section id="contact" class="container mx-auto px-6 py-24">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="h2-92-400 mb-4 slide-in-up">Get In Touch</h2>
+                <p class="body-18-400 text-[var(--color-gainsboro)] max-w-2xl mx-auto slide-in-up">Ready to transform your PR strategy? Let's discuss how our AI-powered tools can help you achieve your communication goals and maximize your media impact.</p>
+            </div>
+            <div class="bg-[var(--color-black-2)] rounded-2xl p-8 md:p-12 card-hover slide-in-up">
+                <form id="contactForm" class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div>
+                            <label for="firstName" class="block body-15-400-1 font-medium mb-2">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required class="w-full px-4 py-3 bg-[var(--color-black-3)] border border-[var(--color-charcoal)] rounded-lg text-white focus:border-[var(--color-gainsboro)] focus:outline-none transition-colors">
+                        </div>
+                        <div>
+                            <label for="lastName" class="block body-15-400-1 font-medium mb-2">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required class="w-full px-4 py-3 bg-[var(--color-black-3)] border border-[var(--color-charcoal)] rounded-lg text-white focus:border-[var(--color-gainsboro)] focus:outline-none transition-colors">
+                        </div>
+                        <div>
+                            <label for="email" class="block body-15-400-1 font-medium mb-2">Email Address *</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-[var(--color-black-3)] border border-[var(--color-charcoal)] rounded-lg text-white focus:border-[var(--color-gainsboro)] focus:outline-none transition-colors">
+                        </div>
+                        <div>
+                            <label for="company" class="block body-15-400-1 font-medium mb-2">Company</label>
+                            <input type="text" id="company" name="company" class="w-full px-4 py-3 bg-[var(--color-black-3)] border border-[var(--color-charcoal)] rounded-lg text-white focus:border-[var(--color-gainsboro)] focus:outline-none transition-colors">
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="service" class="block body-15-400-1 font-medium mb-2">Service Interest</label>
+                            <select id="service" name="service" class="w-full px-4 py-3 bg-[var(--color-black-3)] border border-[var(--color-charcoal)] rounded-lg text-white focus:border-[var(--color-gainsboro)] focus:outline-none transition-colors">
+                                <option value="">Select a service...</option>
+                                <option value="media-monitoring">AI Media Monitoring</option>
+                                <option value="contact-database">PR Contact Database</option>
+                                <option value="brand-identity">Brand Identity Design</option>
+                                <option value="media-relations">Media Relations</option>
+                                <option value="full-service">Full Service Package</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="budget" class="block body-15-400-1 font-medium mb-2">Monthly Budget</label>
+                            <select id="budget" name="budget" class="w-full px-4 py-3 bg-[var(--color-black-3)] border border-[var(--color-charcoal)] rounded-lg text-white focus:border-[var(--color-gainsboro)] focus:outline-none transition-colors">
+                                <option value="">Select budget range...</option>
+                                <option value="under-500">Under $500</option>
+                                <option value="500-1000">$500 - $1,000</option>
+                                <option value="1000-5000">$1,000 - $5,000</option>
+                                <option value="5000-plus">$5,000+</option>
+                                <option value="custom">Custom Enterprise</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block body-15-400-1 font-medium mb-2">Message *</label>
+                            <textarea id="message" name="message" rows="6" required placeholder="Tell us about your PR goals and challenges..." class="w-full px-4 py-3 bg-[var(--color-black-3)] border border-[var(--color-charcoal)] rounded-lg text-white focus:border-[var(--color-gainsboro)] focus:outline-none transition-colors resize-none"></textarea>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2 text-center">
+                        <button type="submit" class="btn-shimmer bg-white text-black px-12 py-4 rounded-lg font-semibold body-15-400-2 hover:scale-105 transition-transform">Send Message</button>
+                        <p class="body-15-400-1 text-[var(--color-dim-gray)] mt-4">We'll get back to you within 24 hours</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comprehensive Footer Section -->
+    <footer class="bg-[var(--color-black-4)] text-[var(--color-gainsboro)]">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
                 
-                if (email) {
-                    // Simulate form submission
-                    const btn = e.target.querySelector('.submit-btn');
-                    const originalText = btn.textContent;
+                <!-- Company Column -->
+                <div class="lg:col-span-1">
+                    <h3 class="text-white font-semibold text-lg mb-6">Company</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#about" class="footer-link">About Us</a></li>
+                        <li><a href="#news" class="footer-link">News</a></li>
+                        <li><a href="#updates" class="footer-link">Product Updates</a></li>
+                        <li><a href="#careers" class="footer-link">Careers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Product Column -->
+                <div class="lg:col-span-1">
+                    <h3 class="text-white font-semibold text-lg mb-6">Product</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#pricing" class="footer-link">Pricing</a></li>
+                        <li><a href="#media-database" class="footer-link">Media Database</a></li>
+                        <li><a href="#media-monitoring" class="footer-link">Media Monitoring</a></li>
+                        <li><a href="#media-pitching" class="footer-link">Media Pitching Tool</a></li>
+                        <li><a href="#ai-pr" class="footer-link">AI PR Software</a></li>
+                        <li><a href="#press-release" class="footer-link">Press Release Creator</a></li>
+                        <li><a href="#pr-reports" class="footer-link">PR Reports</a></li>
+                        <li><a href="#newsroom" class="footer-link">Online Newsroom</a></li>
+                        <li><a href="#digital-pr" class="footer-link">Digital PR</a></li>
+                        <li><a href="#playbooks" class="footer-link">Playbooks</a></li>
+                        <li><a href="#guides" class="footer-link">Product guides</a></li>
+                    </ul>
+                </div>
+
+                <!-- Features Column -->
+                <div class="lg:col-span-1">
+                    <h3 class="text-white font-semibold text-lg mb-6">Features</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#monitoring" class="footer-link">Online Monitoring</a></li>
+                        <li><a href="#social-listening" class="footer-link">Social Media Listening</a></li>
+                        <li><a href="#pr-crm" class="footer-link">PR CRM</a></li>
+                        <li><a href="#press-generator" class="footer-link">AI Press Release Generator</a></li>
+                    </ul>
                     
-                    btn.textContent = 'Thank you!';
-                    btn.style.background = '#22c55e';
-                    
-                    setTimeout(() => {
-                        btn.textContent = originalText;
-                        btn.style.background = '';
-                        emailInput.value = '';
-                    }, 2000);
-                }
-            });
+                    <!-- Knowledge Section -->
+                    <h3 class="text-white font-semibold text-lg mb-6 mt-8">Knowledge</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#blog" class="footer-link">Blog</a></li>
+                        <li><a href="#press-templates" class="footer-link">Press Release Templates</a></li>
+                        <li><a href="#case-studies" class="footer-link">Case studies</a></li>
+                        <li><a href="#journalists" class="footer-link">Top Journalists</a></li>
+                        <li><a href="#outlets" class="footer-link">Top Outlets</a></li>
+                    </ul>
+                </div>
 
-            // Smooth parallax effect
-            let ticking = false;
-            
-            function updateParallax() {
-                const scrolled = window.pageYOffset;
-                const bgElements = document.querySelectorAll('.floating-element');
-                
-                bgElements.forEach((el, index) => {
-                    const speed = 0.5 + (index % 3) * 0.2;
-                    el.style.transform = `translateY(${scrolled * speed}px)`;
-                });
-                
-                ticking = false;
-            }
+                <!-- Compare Column -->
+                <div class="lg:col-span-1">
+                    <h3 class="text-white font-semibold text-lg mb-6">Compare</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#compare-muck-rack" class="footer-link">Prowly vs. Muck Rack</a></li>
+                        <li><a href="#compare-meltwater" class="footer-link">Prowly vs. Meltwater</a></li>
+                        <li><a href="#compare-cision" class="footer-link">Prowly vs. Cision</a></li>
+                        <li><a href="#compare-newswire" class="footer-link">Prowly vs. PR Newswire</a></li>
+                        <li><a href="#switch-muck-rack" class="footer-link">Switch from Muck Rack</a></li>
+                        <li><a href="#switch-meltwater" class="footer-link">Switch from Meltwater</a></li>
+                        <li><a href="#switch-cision" class="footer-link">Switch from Cision</a></li>
+                    </ul>
+                </div>
 
-            window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    requestAnimationFrame(updateParallax);
-                    ticking = true;
-                }
-            });
-        });
+                <!-- Legal & Support Column -->
+                <div class="lg:col-span-1">
+                    <h3 class="text-white font-semibold text-lg mb-6">Legal</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#privacy" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#terms" class="footer-link">Terms of Service</a></li>
+                        <li><a href="#terms-reports" class="footer-link">Terms of Service (MM and PR Reports)</a></li>
+                        <li><a href="#billing" class="footer-link">Billing Policy</a></li>
+                        <li><a href="#data-processing" class="footer-link">Data Processing Addendum</a></li>
+                        <li><a href="#brand-policy" class="footer-link">Brand Policy</a></li>
+                        <li><a href="#cookies" class="footer-link">Cookies Policy</a></li>
+                    </ul>
 
-        function createFloatingElements() {
-            const bgAnimation = document.getElementById('bgAnimation');
-            const numElements = 30;
+                    <!-- Support Section -->
+                    <h3 class="text-white font-semibold text-lg mb-6 mt-8">Support</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#contact" class="footer-link">Contact Us</a></li>
+                        <li><a href="#help" class="footer-link">Help Center</a></li>
+                    </ul>
+                </div>
 
-            for (let i = 0; i < numElements; i++) {
-                const element = document.createElement('div');
-                element.className = 'floating-element';
-                
-                // Random positioning and animation
-                element.style.left = Math.random() * 100 + '%';
-                element.style.animationDelay = Math.random() * 20 + 's';
-                element.style.animationDuration = (15 + Math.random() * 10) + 's';
-                
-                // Random size
-                const size = 1 + Math.random() * 3;
-                element.style.width = size + 'px';
-                element.style.height = size + 'px';
-                
-                bgAnimation.appendChild(element);
-            }
-        }
+            </div>
 
-        // Performance optimization
-        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-        
-        if (reducedMotion.matches) {
-            document.documentElement.style.setProperty('--animation-duration', '0.01ms');
-        }
-    </script>
-</body>
-</html>
+            <!-- Social Media & Bottom Section -->
+            <div class="border-t border-[var(--color-charcoal)] mt-12 pt-8">
+                <!-- Social Icons -->
+                <div class="flex justify-center lg:justify-start space-x-6 mb-8">
+                    <a href="https://twitter.com/hausofpr" target="_blank" rel="noopener noreferrer" class="social-icon">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                    <a href="https://facebook.com/hausofpr" target="_blank" rel="noopener noreferrer" class="social-icon">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/hausofpr" target="_blank" rel="noopener noreferrer" class="social-icon">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987 6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.611-3.197-1.559-.748-.948-1.197-2.25-1.197-3.654 0-1.404.449-2.706 1.197-3.654.749-.948 1.9-1.559 3.197-1.559 1.297 0 2.448.611 3.197 1.559.748.948 1.197 2.25 1.197 3.654 0 1.404-.449 2.706-1.197 3.654-.749.948-1.9 1.559-3.197 1.559z"/>
+                        </svg>
+                    </a>
+                    <a href="https://threads.net/@hausofpr" target="_blank" rel="noopener noreferrer" class="social-icon">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.781 3.631 2.695 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.763-1.231-1.392-1.595a4.51 4.51 0 0 0-1.926-.1c-.716-.024-.49-.127-.497-.127-.506-.023-.982.097-1.417.367-.174.108-.336.234-.48.378-.727-.024-.42-.127-.497-.127-.506-.023-.982.097-1.417.367-.435.27-.835.665-1.176 1.176-.341.511-.611 1.126-.784 1.825-.173.7-.257 1.45-.244 2.197.013.747.156 1.463.413 2.098.257.635.6 1.19 1.029 1.627.428.437.94.742 1.518.908.578.166 1.213.18 1.843.043a6.454 6.454 0 0 0 1.685-.57.5.5 0 0 0 .287-.454.5.5 0 0 0-.287-.454c-.578-.287-1.213-.43-1.843-.43-.63 0-1.265.143-1.843.43a.5.5 0 0 0-.287.454.5.5 0 0 0 .287.454c.630.287 1.265.43 1.895.43.63 0 1.265-.143 1.895-.43z"/>
+                        </svg>
+                    </a>
+                    <a href="https://linkedin.com/company/hausofpr" target="_blank" rel="noopener noreferrer" class="social-icon">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Copyright and Contact -->
+                <div class="flex flex-col lg:flex-row justify-center lg:justify-between items-center space-y-4 lg:space-y-0">
+                    <div class="text-center lg:text-left">
+                        <p class="text-sm text-[var(--color-dim-gray)] mb-2">
+                            © 2025 Haus Of PR. All rights reserved.
+                        </p>
+                        <p class="text-sm text-[var(--color-dim-gray)]">
+                            Designed with <span class="text-red-500 animate-pulse">❤️</span> | Developed by <span class="text-white font-medium">Kushal</span>
+                        </p>
+                    </div>
+                    <div class="text-center lg:text-right">
+                        <a href="mailto:taanya.hausofpr@gmail.com" class="text-white hover:text-[#c0c0c0] transition-colors duration-200 font-medium">
+                            taanya.hausofpr@gmail.com
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
