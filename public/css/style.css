@@ -1,5 +1,10 @@
-/* Mirror of root css/style.css for public deployment */
-/* ---- 1. SETUP & COLOR PALETTE ---- */
-:root { /* ...existing root vars... */ }
-/* Full stylesheet intentionally omitted here for brevity; rely on root css/style.css source in root. */
-/* If deploying statically from /public, consider moving original css content here instead of duplication. */
+/* Critical subset of stylesheet duplicated for public build */
+:root { --color-white:#ffffff; --color-gainsboro:#e6e6e6; --color-dim-gray:#636363; --color-charcoal:#3b3b3b; --color-black-2:#0a0a0a; --color-black-3:#0d0d0d; }
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:Inter,sans-serif;overflow-x:hidden;background:var(--color-black-3);color:var(--color-white);}
+.loader-container{position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,var(--color-black-3) 0%,var(--color-black-2) 50%,#080808 100%);display:flex;justify-content:center;align-items:center;z-index:9999;transition:opacity .8s ease,visibility .8s ease}
+.loader-progress-bar{width:240px;height:4px;background:var(--color-charcoal);border-radius:10px;overflow:hidden}
+.loader-progress-fill{height:100%;width:0;background:linear-gradient(90deg,#ffffff,#c0c0c0,#ffffff);background-size:200% 100%;animation:progressFill 2.5s ease-out forwards,progressShimmer 1.5s ease-in-out infinite}
+@keyframes progressFill{0%{width:0}100%{width:100%}}
+@keyframes progressShimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+/* NOTE: For full styling load root css/style.css or copy entire contents here. */
